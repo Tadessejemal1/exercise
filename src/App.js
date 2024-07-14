@@ -1,25 +1,25 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import SvgComponent from './SvgComponent';
+import ToggleComponent from './ToggleComponent';
 import './App.css';
 
-function App() {
+const App = () => {
+  const [visibleElements, setVisibleElements] = useState(['circle1', 'rect1']);
+
+  const handleToggle = (elementId) => {
+    setVisibleElements((prevVisibleElements) =>
+      prevVisibleElements.includes(elementId)
+        ? prevVisibleElements.filter((id) => id !== elementId)
+        : [...prevVisibleElements, elementId]
+    );
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <SvgComponent visibleElements={visibleElements} />
+      <ToggleComponent onToggle={handleToggle} />
     </div>
   );
-}
+};
 
 export default App;
